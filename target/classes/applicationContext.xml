@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:jee="http://www.springframework.org/schema/jee"  
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd  
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd  
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"> 
+        
+    <!--  导入springMvc.xml配置文件 -->
+    <import resource="classpath:spring-mvc.xml" /> 
+	<!-- 加载数据库配置 -->
+    <!-- <context:property-placeholder location="classpath:db.properties" /> -->
+	<!-- 加载数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://106.14.166.40:3306/myZone?useUnicode=true&amp;characterEncoding=UTF-8&amp;createDatabaseIfNotExist=true" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+		<property name="maxActive" value="100" />
+		<property name="maxIdle" value="30" />
+		<property name="minIdle" value="5" />
+		<property name="maxWait" value="5000" />
+	</bean>
+	
+	
+	
+	<!-- 配置SessionFactory,表示Hibernate初始化配置 -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">  
+            <props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5InnoDBDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- <prop key="hibernate.current_session_context_class">thread</prop> -->
+				</props> 
+        </property>
+        <!-- 配置映射文件 -->
+        <!-- 自动扫描注解方式配置的hibernate类文件 -->
+		<property name="packagesToScan">
+			<list>
+				<value>com.myzone.model</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- 声明式事务 -->  
+    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
+        <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>  
+	  
+    <aop:config>  
+        <aop:pointcut id="productServiceMethods" expression="execution(* com.myzone.service..*.*(..))" />  
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="productServiceMethods" />  
+    </aop:config>  
+     
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">  
+        <tx:attributes>  
+        	<tx:method name="save*"   propagation="REQUIRED" />
+			<tx:method name="add*"    propagation="REQUIRED" />
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="merge*"  propagation="REQUIRED" />
+			<tx:method name="del*"    propagation="REQUIRED" />
+			<tx:method name="remove*" propagation="REQUIRED" />
+			<tx:method name="put*"    propagation="REQUIRED" />
+            <tx:method name="*" propagation="SUPPORTS" read-only="true" />  
+        </tx:attributes>  
+    </tx:advice> 
+	
+	
+</beans>
