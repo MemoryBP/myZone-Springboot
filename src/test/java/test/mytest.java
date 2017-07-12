@@ -1,19 +1,14 @@
 package test;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.PrintStream;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class mytest {
 	public static void main(String[] args) {
-		try {
-			//输出重定向
-			System.setOut(new PrintStream(
-					new FileOutputStream( "g:\\haohao.txt")));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("dwdwdw");
+		System.out.println("TestQuartz start.");
+		ApplicationContext context = new ClassPathXmlApplicationContext("classpath:applicationContext-job.xml");
+		//如果配置文件中将startQuertz bean的lazy-init设置为false 则不用实例化
+		//context.getBean("taskManager");
+		System.out.print("TestQuartz end..");
 	}
 }

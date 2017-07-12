@@ -17,6 +17,10 @@
     <import resource="classpath:spring-mvc.xml" /> 
 	<!-- 加载数据库配置 -->
     <!-- <context:property-placeholder location="classpath:db.properties" /> -->
+
+
+
+
 	<!-- 加载数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
