@@ -39,44 +39,4 @@
 			</list>
 		</property>
 	</bean>
-
-
-	<!-- 启动触发器的配置开始 -->
-	<!--<bean name="startQuertz" lazy-init="false" autowire="no"
-		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
-		<property name="triggers">
-			<list>
-				<ref bean="myJobTrigger" />
-			</list>
-		</property>
-	</bean>
-	&lt;!&ndash; 启动触发器的配置结束 &ndash;&gt;
-
-	&lt;!&ndash; quartz-2.x的配置 &ndash;&gt;
-	<bean id="myJobTrigger"
-		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail">
-			<ref bean="myJobDetail" />
-		</property>
-		<property name="cronExpression">
-			&lt;!&ndash;middle night 24. do it  &ndash;&gt;
-			<value>*/5 * * * * ?</value>
-		</property>
-	</bean>
-	&lt;!&ndash; 调度的配置结束 &ndash;&gt;
-
-	&lt;!&ndash; job的配置开始 &ndash;&gt;
-	<bean id="myJobDetail"
-		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<property name="targetObject">
-			<ref bean="myJob" />
-		</property>
-		<property name="targetMethod">
-			<value>work</value>
-		</property>
-	</bean>
-	&lt;!&ndash; job的配置结束 &ndash;&gt;
-
-	&lt;!&ndash; 工作的bean &ndash;&gt;
-	<bean id="myJob" class="com.myzone.util.MyJob" />-->
 </beans>
