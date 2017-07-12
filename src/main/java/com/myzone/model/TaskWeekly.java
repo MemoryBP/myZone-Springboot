@@ -38,4 +38,72 @@ public class TaskWeekly implements Serializable{
 	@Column
     private Date updateDate;
 
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEvent() {
+		return event;
+	}
+
+	public void setEvent(String event) {
+		this.event = event;
+	}
+
+	public String getCron() {
+		return cron;
+	}
+
+	public void setCron(String cron) {
+		this.cron = cron;
+	}
+
+	public String getTemplate() {
+		return template;
+	}
+
+	public void setTemplate(String template) {
+		this.template = template;
+	}
+
+	public String getDescribe() {
+		return describe;
+	}
+
+	public void setDescribe(String describe) {
+		this.describe = describe;
+	}
+
+	public Date getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(Date createDate) {
+		this.createDate = createDate;
+	}
+
+	public Date getUpdateDate() {
+		return updateDate;
+	}
+
+	public void setUpdateDate(Date updateDate) {
+		this.updateDate = updateDate;
+	}
+
+	@Override
+	public String toString() {
+		return "TaskWeekly{" +
+				"id=" + id +
+				", event='" + event + '\'' +
+				", cron='" + cron + '\'' +
+				", template='" + template + '\'' +
+				", describe='" + describe + '\'' +
+				", createDate=" + createDate +
+				", updateDate=" + updateDate +
+				'}';
+	}
 }

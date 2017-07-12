@@ -23,7 +23,7 @@ $(function(){
 								<input class="form-control" id="password" type="password" placeholder="至少6位字母或数字">\
 							</div>\
 							<div class="text-right">\
-								<button id="login" class="btn btn-primary" data-loading-text="正在登录..." data-fail-text="登录失败" data-success-text="登录成功" type="button">登录</button>\
+								<button id="login" onclick="login()" class="btn btn-primary" data-loading-text="正在登录..." data-fail-text="登录失败" data-success-text="登录成功" type="button">登录</button>\
 								<button class="btn btn-danger" data-dismiss="modal">取消</button>\
 							</div>\
 							<a href="" data-toggle="modal" data-dismiss="modal" data-target="#register">还没有账号？点我注册</a>\
