@@ -30,7 +30,7 @@ public class TaskWeekly implements Serializable{
     private String template;
 
 	@Column(length = 255)
-	private String describe;
+	private String description;
 
 	@Column
     private Date createDate;
@@ -70,12 +70,12 @@ public class TaskWeekly implements Serializable{
 		this.template = template;
 	}
 
-	public String getDescribe() {
-		return describe;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescribe(String describe) {
-		this.describe = describe;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public Date getCreateDate() {
@@ -101,7 +101,7 @@ public class TaskWeekly implements Serializable{
 				", event='" + event + '\'' +
 				", cron='" + cron + '\'' +
 				", template='" + template + '\'' +
-				", describe='" + describe + '\'' +
+				", description='" + description + '\'' +
 				", createDate=" + createDate +
 				", updateDate=" + updateDate +
 				'}';
