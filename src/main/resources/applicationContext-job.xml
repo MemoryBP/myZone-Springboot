@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>  
 <beans xmlns="http://www.springframework.org/schema/beans"    
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
-    xmlns:p="http://www.springframework.org/schema/p"  
-    xmlns:aop="http://www.springframework.org/schema/aop"   
-    xmlns:context="http://www.springframework.org/schema/context"  
-    xmlns:jee="http://www.springframework.org/schema/jee"  
-    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xmlns:p="http://www.springframework.org/schema/p"
     xsi:schemaLocation="
-        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd  
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
-        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
-        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd  
-        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"> 
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<!-- 数据分析定时下发工作类 -->
-	<bean id="quartzJob" class="com.myzone.util.QuartzJob"/>
-	<!-- 定义调用对象和调用对象的方法 -->
+	<!--<bean id="quartzJob" class="com.myzone.util.QuartzJob"/>
+	&lt;!&ndash; 定义调用对象和调用对象的方法 &ndash;&gt;
 	<bean id="jobTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
-		<!-- 调用的类 -->
+		&lt;!&ndash; 调用的类 &ndash;&gt;
 		<property name="targetObject">
 			<ref bean="quartzJob"/>
 		</property>
-		<!-- 调用类中的方法 -->
+		&lt;!&ndash; 调用类中的方法 &ndash;&gt;
 		<property name="targetMethod">
 			<value>work</value>
 		</property>
 		<property name="concurrent" value="false"/>
 	</bean>
-	<!-- 定义触发时间 -->
+	&lt;!&ndash; 定义触发时间 &ndash;&gt;
 	<bean id="jobTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
 		<property name="jobDetail">
 			<ref bean="jobTask"/>
 		</property>
-		<!-- cron表达式 -->
+		&lt;!&ndash; cron表达式 &ndash;&gt;
 		<property name="cronExpression">
 			<value>*/5 * * * * ?</value>
 		</property>
 	</bean>
-	<!-- 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 -->
+	&lt;!&ndash; 总管理类 如果将lazy-init='false'那么容器启动就会执行调度程序 &ndash;&gt;
 	<bean id="taskManager" lazy-init="false" autowire="no"
 		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
@@ -45,5 +38,45 @@
 				<ref bean="jobTaskTrigger"/>
 			</list>
 		</property>
+	</bean>-->
+
+
+	<!-- 启动触发器的配置开始 -->
+	<bean name="startQuertz" lazy-init="false" autowire="no"
+		  class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="myJobTrigger" />
+			</list>
+		</property>
 	</bean>
+	<!-- 启动触发器的配置结束 -->
+
+	<!-- quartz-2.x的配置 -->
+	<bean id="myJobTrigger"
+		  class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="myJobDetail" />
+		</property>
+		<property name="cronExpression">
+			<!--middle night 24. do it  -->
+			<value>0 0 0 * * ?</value>
+		</property>
+	</bean>
+	<!-- 调度的配置结束 -->
+
+	<!-- job的配置开始 -->
+	<bean id="myJobDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject">
+			<ref bean="myJob" />
+		</property>
+		<property name="targetMethod">
+			<value>work</value>
+		</property>
+	</bean>
+	<!-- job的配置结束 -->
+
+	<!-- 工作的bean -->
+	<bean id="myJob" class="com.myzone.util.MyJob" />
 </beans>
