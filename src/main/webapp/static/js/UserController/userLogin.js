@@ -1,7 +1,19 @@
 $(
 	//登陆
-	function login() {
+	function() {
+		function validateStatus() {
+			
+			$("#name").click(function() {
+				$("#p1").text("");
+			});
+			$("#password").click(function() {
+				$("#p2").text("");
+			});
+		};
+		//	输入框验证
+		/*validateStatus();*/
 		//提交表单
+		$("#login").click(function() {
 			var name = $("#name"),
 				password = $("#password");
 			if (!name.val()) {
@@ -39,4 +51,5 @@ $(
 					}
 				}
 			});
+		});
 	});
