@@ -29,6 +29,9 @@ public class TaskWeekly implements Serializable{
     @Column(length = 255)
     private String template;
 
+	@Column(length = 255)
+	private String describe;
+
 	@Column
     private Date createDate;
 	
