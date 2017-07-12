@@ -3,4 +3,6 @@
 # 1.框架:SSH(Spring+SpringMVC+Hibernate)
 # 2.基本增删改查
 # 3.前端使用bootstrap插件和layer对话框插件
-# 4.目前处理任务调度器(Quartz)配置问题
+# 4.目前处理任务调度器(Quartz)配置问题(已解决)
+# 5.任务调度器(Quartz)配置注解方式
+# 6.处理任务调度器(Quartz)配置动态设置注解(Cron表达式)值
