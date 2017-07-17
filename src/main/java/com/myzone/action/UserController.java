@@ -25,7 +25,13 @@ public class UserController {
 	
 	@Resource
 	private HttpSession session;
-	
+
+	@RequestMapping(value = "/view")
+	public String getView() {
+		return "login";
+	}
+
+
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public Map<String, Object> getUserName() {
 		Map<String, Object> result = new HashMap<String, Object>();
