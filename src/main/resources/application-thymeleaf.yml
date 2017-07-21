@@ -1,0 +1,11 @@
+spring:
+  thymeleaf:
+    cache: false #启动模板缓存
+    check-template: true #在呈现模板之前检查模板是否存在
+    check-template-location: true #检查模板位置是否存在
+    content-type: text/html
+    enabled: true #启动MVC Thymeleaf视图分辨率
+    encoding: utf-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html

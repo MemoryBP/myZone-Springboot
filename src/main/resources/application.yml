@@ -1,0 +1,16 @@
+server:
+  port: 8082
+spring:
+  profiles:
+    active: thymeleaf
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/dbmyzone?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+userName: Alex
+bookTitle: Spring Boot入门教程
