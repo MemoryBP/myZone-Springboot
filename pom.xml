@@ -8,7 +8,7 @@
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>myZone Maven Webapp</name>
+	<name>myZone-Springboot</name>
 	<url>http://maven.apache.org</url>
 
 	<!-- 版本定义 -->
