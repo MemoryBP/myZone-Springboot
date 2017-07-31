@@ -1,11 +1,11 @@
 server:
-  port: 8082
+  port: 8085
 spring:
   profiles:
     active: thymeleaf
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/dbmyzone?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
+    url: jdbc:mysql://106.14.166.40:3306/myZone?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8
     username: root
     password: root
   jpa:
