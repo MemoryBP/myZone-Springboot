@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="/css/mui.min.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">注册</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row">
+					<label>用户名</label>
+					<input id="username" type="text" class="mui-input-clear" placeholder="请输入用户名" value="chen">
+				</div>
+				<div class="mui-input-row">
+					<label>手机号</label>
+					<input id="phone" type="text" class="mui-input-clear" placeholder="请输入手机号" value="14725836912">
+				</div>
+				<div class="mui-input-row">
+					<label>密码</label>
+					<input id="password1" type="password" class="mui-input-password mui-input-clear" placeholder="请输入密码" value="chen">
+				</div>
+				<div class="mui-input-row">
+					<label>确认密码</label>
+					<input id="password2" type="password" class="mui-input-password mui-input-clear" placeholder="请再输入密码" value="chen">
+				</div>
+				<!--<div class="mui-input-row">
+		            <label>验证码</label>
+		            <!--<span class="mui-badge mui-pull-right mui-badge-red">获取验证码</span>-->
+				<!--<button type="button" id='btnVerificationCode' class="mui-btn mui-btn-outlined">获取验证码</button>-->
+				<!--<input type="text" class="mui-input-clear" placeholder="请再输入验证码">
+		        </div>-->
+				<div class="mui-input-row">
+					<label>邮箱</label>
+					<input id="email" type="text" class="mui-input-clear" placeholder="请输入邮箱" value="123123@qq.com">
+				</div>
+				<div class="mui-input-row">
+					<label>身份证</label>
+					<input id="idcard" type="text" class="mui-input-clear" placeholder="请输入身份证" value="123123">
+				</div>
+			</form>
+			<div class="mui-content-padded">
+				<button id='reg'  onclick="alert('xxx')" class="mui-btn mui-btn-block mui-btn-danger">完成注册</button>
+			</div>
+		</div>
+
+		<script src="/js/mui.min.js"></script>
+		<script src="http://cdn.bootcss.com/blueimp-md5/1.1.0/js/md5.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			mui.ready(function() {
+				document.getElementById('reg').addEventListener('tap', function() {
+					var username = document.getElementById('username').value
+					var phone = document.getElementById('phone').value
+					var pwd1 = document.getElementById('password1').value
+					var pwd2 = document.getElementById('password2').value
+					var email = document.getElementById('email').value
+					var idcard = document.getElementById('idcard').value
+					if(username.length == 0) {
+						alert('用户名不能为空!')
+						return false;
+					}
+					if(phone.length == 0) {
+						alert('手机号不能为空!')
+						return false;
+					}
+					if(pwd1.length == 0) {
+						alert('密码不能为空!')
+						return false;
+					}
+					if(pwd2.length == 0) {
+						alert('密码不能为空!')
+						return false;
+					}
+					if(pwd2 != pwd1) {
+						alert('两次密码输入不正确!')
+						return false;
+					}
+					if(email.length == 0) {
+						alert('邮箱不能为空')
+						return false;
+					}
+					if(idcard.length == 0) {
+						alert('身份证不能为空')
+						return false;
+					}
+					var parame = {
+						"username": username,
+						"password": md5(pwd1),
+						"type": 2,
+						"idCard": "123123",
+						"phone": phone,
+						"email": "123123@qq.coom"
+					};
+					registr(parame)
+				});
+			});
+
+			function registr(parame) {
+				mui.ajax('http://localhost:8085/index/register', {
+					data: JSON.stringify(parame),
+					dataType: 'JSON', //服务器返回json格式数据
+					type: 'POST',
+					timeout: 10000, //超时时间设置为10秒；
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					success: function(result) {
+						console.log(result)
+						var reval = JSON.parse(result)
+						if(reval.code == 0) {
+                                mui.toast('注册成功', {
+                                    duration: 'short',
+                                    type: 'div'
+                                })
+						} else {
+                            mui.toast(reval.msg, {
+                                duration: 'short',
+                                type: 'div'
+                            })
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						//异常处理；
+						mui.toast(type, {
+							duration: 'short',
+							type: 'div'
+						})
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>
